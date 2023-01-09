@@ -28,7 +28,7 @@ DEBUG = True
 # ALLOWED_HOSTS = ["192.168.1.192", "127.0.0.1", "127.0.0.1:8000", "localhost"]
 ALLOWED_HOSTS = ['*']
 
-
+# DATE_INPUT_FORMATS =  ['%Y,%m,%d']
 # Application definition
 
 INSTALLED_APPS = [
@@ -102,7 +102,7 @@ WSGI_APPLICATION = "nse_data.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "stock_data",
+        "NAME": "nse_data",
         "USER": "root",
         "PASSWORD": "",
         "HOST": "localhost",
@@ -110,8 +110,12 @@ DATABASES = {
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
-
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

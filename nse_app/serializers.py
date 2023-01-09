@@ -18,6 +18,7 @@ class stockListSerializer(serializers.ModelSerializer):
         # exclude = ['sell_buy_time',]
 
 class stockPostSerializer(serializers.ModelSerializer):
+    
     # percentage = settingSerializer()
     class Meta:
         model = stock_detail
@@ -31,6 +32,23 @@ class putbankniftySerializer(serializers.ModelSerializer):
         model = stock_detail
         fields = "__all__"
         # exclude = ['percentage',]
+
+class pcr_stock_nameSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = pcr_stock_name
+        fields = "__all__"
+
+class liveSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = live
+        fields = "__all__"
+
+class dropdownSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = dropdown_stock_name
+        fields = "__all__"
 
 
 

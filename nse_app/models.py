@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from .managers import CustomUserManager ,MyAccountManager
+from .managers import CustomUserManager, MyAccountManager
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -8,7 +8,18 @@ Buy_status = (
     ('BUY', 'BUY'),
     ('SELL', 'SELL'),
     ('empty', 'empty'),
+    )
 
+final_status = (
+    ('PROFIT', 'PROFIT'),
+    ('LOSS', 'LOSS'),
+    ('NA', 'NA'),
+    )
+
+call_or_put = (
+    ('CALL', 'CALL'),
+    ('PUT', 'PUT'),
+    ('NA', 'NA'),
     )
 
 # Create your models here.
@@ -16,12 +27,18 @@ Buy_status = (
 
 class nse_setting(models.Model):
 
-    percentage = models.IntegerField()
     option = models.CharField(max_length=50)
+    profit_percentage = models.IntegerField()
+    loss_percentage = models.IntegerField()
+    set_pcr = models.FloatField()
+    baseprice_plus = models.IntegerField()
+    quantity_bn = models.FloatField(default= 1 ,null=True)
 
     def __str__(self):
         return self.option
 
+
+    
 class stock_detail(models.Model):
     
     base_strike_price = models.FloatField()
@@ -35,14 +52,33 @@ class stock_detail(models.Model):
     buy_time = models.DateTimeField(auto_now_add= True)
     sell_buy_time = models.DateTimeField( null=True)
     status = models.CharField(max_length=50, choices=Buy_status, default='empty', blank=True)
+    final_status = models.CharField(max_length=50, choices=final_status, default='NA', blank=True )
+    admin_call = models.BooleanField(default=False)
+    call_put = models.CharField(max_length=50, blank=True, choices=call_or_put)
+    stock_name = models.TextField(null=True, blank=True)
+    squareoff = models.FloatField(null=True , blank=True)
+    stoploss =  models.FloatField(null=True , blank=True)
+    orderid = models.FloatField(null= True)
 
 
-
-
-
-
-
+class pcr_stock_name(models.Model):
+    name = models.CharField(max_length = 100)
+    pcr = models.FloatField(null=True)
+    date = models.DateTimeField(auto_now=True , null=True)
+    PE_CE_diffrent = models.BooleanField(default=False)
     
+
+
+class live(models.Model):
+    set = models.FloatField(default=0)
+
+class dropdown_stock_name(models.Model):
+    name = models.CharField(max_length = 100 )
+    pcr = models.FloatField(null=True)
+    date = models.DateTimeField(auto_now=True , null=True)
+    PE_CE_diffrent = models.BooleanField(default=False)
+
+
 
 
 
