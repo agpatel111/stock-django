@@ -20,6 +20,7 @@ urlpatterns = [
     path('Logout', views.Logout.as_view(), name="logout"),
 
     path('selectname', views.Dropdownselect.as_view(), name = 'selectstockname'), 
+    path('selectnameput', views.Dropdownselectput.as_view(), name = 'selectstocknameput'), 
 
   
 ]

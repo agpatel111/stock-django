@@ -663,3 +663,71 @@ class Dropdownselect(APIView):
             print(e)
             return Response({"status": False, "msg": "Invalid StockName", "data": {}})
 
+
+class Dropdownselectput(APIView):
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+
+    def get(self, request):
+        nse_objs = dropdown_stock_name_put.objects.all()
+        serializer = dropdownputSerializer(nse_objs, many=True)
+        return Response(
+            {"status": True, "msg": "Stock Details Fetched", "data": serializer.data}
+        )
+
+    def post(self, request):
+
+        try:
+            data = request.data
+            serializer = dropdownputSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    {"status": True, "msg": "Successfully Post Data",
+                        "data": serializer.data}
+                )
+            else:
+                return Response(
+                    {"status": False, "msg": "invalid data",
+                        "data": serializer.errors}
+                )
+
+        except Exception as e:
+            print(e)
+        return Response(
+            {
+                "status": False,
+                "msg": "Somthing Went Wrong",
+            }
+        )
+
+    def put(self, request):
+        try:
+            data = request.data
+            print(data)
+            if not data.get("id"):
+                return Response({"status": False, "msg": "name is required", "data": {}})
+
+            obj = dropdown_stock_name_put.objects.get(id=data.get("id"))
+            print(obj)
+            serializer = dropdownputSerializer(obj, data=data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    {
+                        "status": True,
+                        "msg": "successfully Update Stock Data",
+                        "data": serializer.data,
+                    }
+                )
+            else:
+                return Response(
+                    {
+                        "status": False,
+                        "msg": "invalid data",
+                        "data": serializer.errors,
+                    }
+                )
+        except Exception as e:
+            print(e)
+            return Response({"status": False, "msg": "Invalid StockName", "data": {}})

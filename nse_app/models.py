@@ -79,7 +79,11 @@ class dropdown_stock_name(models.Model):
     PE_CE_diffrent = models.BooleanField(default=False)
 
 
-
+class dropdown_stock_name_put(models.Model):
+    name = models.CharField(max_length = 100 )
+    pcr = models.FloatField(null=True)
+    date = models.DateTimeField(auto_now=True , null=True)
+    PE_CE_diffrent = models.BooleanField(default=False)
 
 
 # class User(AbstractBaseUser):

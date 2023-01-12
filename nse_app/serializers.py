@@ -51,7 +51,10 @@ class dropdownSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
+class dropdownputSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = dropdown_stock_name_put
+        fields = "__all__"
 
 # class UserRegistrationSerializer(serializers.ModelSerializer):
 
