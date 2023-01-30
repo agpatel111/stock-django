@@ -59,6 +59,8 @@ class stock_detail(models.Model):
     squareoff = models.FloatField(null=True , blank=True)
     stoploss =  models.FloatField(null=True , blank=True)
     orderid = models.FloatField(null= True)
+    buy_pcr = models.FloatField(null= True)
+    sell_pcr = models.FloatField(null= True)
 
 
 class pcr_stock_name(models.Model):

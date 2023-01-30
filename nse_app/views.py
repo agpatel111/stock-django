@@ -148,14 +148,14 @@ class stock_details(APIView):
                                     "tradingsymbol": symbol,
                                     "symboltoken": token,
                                     "transactiontype": 'BUY',
-                                    'exchange': exch_seg,
+                                    'exchange': 'NFO',
                                     "ordertype": 'LIMIT',
                                     "producttype": 'BO',
                                     "duration": "DAY",
                                     "price": brid_price,
                                     "squareoff": squareoff,
                                     "stoploss": stoploss,
-                                    # "quantity":qnt_place,
+                                    "quantity":qnt_place,
 
                                     "trailingStopLoss": tg,
                                 }
@@ -188,7 +188,7 @@ class stock_details(APIView):
                                     "price": '30',    
                                     "squareoff": squareoff,
                                     "stoploss": stoploss,
-                                    "quantity":qnt_place,
+                                    # "quantity":qnt_place,
 
                                    
                                 }
@@ -221,7 +221,7 @@ class stock_details(APIView):
                                 return df[(df['exch_seg'] == 'NFO') & (df['expiry'] == expiry_day) & (df['instrumenttype'] == instrumenttype) & (df['name'] == symbol) & (df['strike'] == strike_price) & (df['symbol'].str.endswith(pe_ce))].sort_values(by=['expiry'])
 
                         a = date(2023,1,12)      
-                        exprity_stock  = date(2023,1,25)
+                        exprity_stock  = date(2023,2,23)
                         
                         if percentions == 2 :
                             symbol = 'BANKNIFTY'
@@ -265,6 +265,15 @@ class stock_details(APIView):
                             place_order_stock(ce_strike_symbol['token'],ce_strike_symbol['symbol'],ce_strike_symbol['lotsize'],'SELL','MARKET',0,'NORMAL','NSE')
                            
                             print("stock ce", ce_strike_symbol)
+
+
+                        elif percentions == 6: 
+                            symbol = stock_name_nse
+                            print("stock_name_nse",stock_name_nse)
+                            ce_strike_symbol = getTokenInfo(symbol,'NFO','OPTSTK',base_strike_price,'PE',exprity_stock).iloc[0]
+                            place_order(ce_strike_symbol['token'],ce_strike_symbol['symbol'],ce_strike_symbol['lotsize'],'SELL','MARKET',0,'NORMAL','NSE')
+                           
+                            print("stock pe", ce_strike_symbol)    
 
                        
                 return Response(
