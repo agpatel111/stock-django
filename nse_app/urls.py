@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('selectname', views.Dropdownselect.as_view(), name = 'selectstockname'), 
     path('selectnameput', views.Dropdownselectput.as_view(), name = 'selectstocknameput'), 
+     path('realtime-candlestick/', views.realtime_candlestick, name='realtime-candlestick'),
 
   
 ]

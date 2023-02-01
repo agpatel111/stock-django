@@ -740,3 +740,20 @@ class Dropdownselectput(APIView):
         except Exception as e:
             print(e)
             return Response({"status": False, "msg": "Invalid StockName", "data": {}})
+
+import requests
+import pandas as pd
+import plotly.express as px
+
+def fetch_data():
+    url = "https://www.nseindia.com/api/option-chain-indices?symbol=BANKNIFTY"
+    response = requests.get(url)
+    data = response.json()
+    df = pd.DataFrame(data)
+    return df
+
+def realtime_candlestick(request):
+    df = fetch_data()
+    fig = px.candlestick(df, x='timestamp', open='open', high='high', low='low', close='close')
+    return fig
+

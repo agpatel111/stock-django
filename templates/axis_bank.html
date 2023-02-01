@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="candlestick"></div>
+    <script>
+      var data = {{ data|safe }};
+      var trace = {
+        x: data.map(function(d) { return d['Time'] }),
+        close: data.map(function(d) { return d['Close Price'] }),
+        decreasing: {line: {color: '#7F7F7F'}}, 
+        high: data.map(function(d) { return d['High Price'] }),
+        increasing: {line: {color: '#17BECF'}}, 
+        low: data.map(function(d) { return d['Low Price'] }),
+        open: data.map(function(d) { return d['Open Price'] }),
+        type: 'candlestick', 
+        xaxis: 'x', 
+        yaxis: 'y'
+      };
+      var layout = {
+        title: 'Axis Bank Candlestick Chart (' + {{ interval }} + ' minutes interval
